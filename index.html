@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap & other CSS -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <title>Wind Turbine Economics</title>
+</head>
+
+<body>
+  <script src="js/nav.js"></script>
+  <br>
+  <div class="row">
+    <div class="col-lg-10 offset-lg-2">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0">
+          <img src="img/wind-farm.png" class="img-tur">
+        </div>
+        <div class="flex-grow-1 ms-3">
+          <h3>Wind Turbine Economics</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3 offset-lg-2">
+      <form name="form" id="form" action="/wtg_economics/index.html" method="post">
+        <fieldset>
+          <div class="form-group">
+            <label for="currency" class="form-label mt-4">Currency selection</label>
+            <select class="form-select" id="currency" fdprocessedid="xsvpb">
+              <option>&#36</option>
+              <option>&#163</option>
+              <option>&#8364</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="rating" class="form-label mt-4">Turbine rating kW</label>
+            <input type="number" class="form-control" name="rating" id="rating" required min="10" max="7500" step="10" placeholder="1000" data-bs-toggle="tooltip" data-bs-placement="top" title="input Turbine Rated Capacity">
+          </div>
+          <div class="form-group">
+            <label for="turcost" class="form-label mt-4">Turbine cost <span class="cur">&#36</span></label>
+            <input type="number" class="form-control" name="turcost" id="turcost" required placeholder="1000000" min="50000" max="20000000" data-bs-toggle="tooltip" data-bs-placement="top" title="input Turbine Cost">
+          </div>
+          <div class="form-group">
+            <label for="psell" class="form-label mt-4">Pselling price per kWh <span class="cur">&#36</span></label>
+            <input type="number" class="form-control" name="psell" id="psell" required placeholder="0.072" step="0.001" min="0.001" max="1" data-bs-toggle="tooltip" data-bs-placement="top" title="amount you expect to sell energy for in your currency per kWh">
+          </div>
+          <div class="form-group">
+            <label for="capfactor" class="form-label mt-4">Capacity factor: <span id="capval"></span>%</label>
+            <input type="range" class="form-range" id="capfactor" min="20" max="59" step="1" name="capfactor" value="39" data-bs-toggle="tooltip" data-bs-placement="bottom" title="input what the turbine will generate on average as a percentage of it's rated capacity">
+          </div>    
+          <div class="form-group">
+            <label for="deslife" class="form-label mt-4">Turbine design life: <span id="lifeval"></span> years</label>
+            <input type="range" class="form-range" id="deslife" min="15" max="30" step="1" name="deslife" value="20" data-bs-toggle="tooltip" data-bs-placement="bottom" title="input expected Turbine Design Life in years">
+          </div>
+          <div class="form-group">
+            <label for="omrate" class="form-label mt-4">O&M rate: <span id="opval"></span>%</label>
+            <input type="range" class="form-range" id="omrate" min="4" max="12" step="1" name="omrate" value="8" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Operations and Maintenance cost is generally around 8% of annual revenue">
+          </div>
+          <div class="form-group">
+            <label for="llrate" class="form-label mt-4">Land lease rate: <span id="llrval"></span>%</label>
+            <input type="range" class="form-range" id="llrate" min="1" max="10" step="1" name="llrate" value="5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Land Lease Rate is variable, according to AWEA statistics this is around 5% of annual revenue">
+          </div>     
+          <div class="form-group">
+            <label for="fcr" class="form-label mt-4">FCR: <span id="fcrval"></span>%</label>
+            <input type="range" class="form-range" id="fcr" min="2" max="12" step="1" name="fcr" value="7" data-bs-toggle="tooltip" data-bs-placement="bottom" title="The fraction of the Total Installed Cost that must be set aside each year to retire capital costs which include interest on debt, return on equity, and so forth.  7% is a generally accepted figure.">
+          </div>
+          <br>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="col-lg-5">
+      <br>
+      <div class="bs-component">
+        <div class="card border-primary mb-3">
+          <div class="card-header">Results</div>
+          <div class="card-body">
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="initial Capital Investment">Initial CAPEX</th>
+                  <td><span class="cur">&#36</span><span id="capex">0</span></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="net Annual Energy Production">AEP</th>
+                  <td><span id="aep">0</span></td>
+                  <td>kWh</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Levelized Replacement Cost (yearly sinking fund for overhauls and replacements)">LRC</th>
+                  <td><span class="cur">&#36</span><span id="lrc">0</span></td>
+                  <td>per year</td>
+                </tr>
+                <tr>
+                  <th scope="row">Year Revenue</th>
+                  <td><span class="cur">&#36</span><span id="revenue">0</span></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Operations and Maintenance cost">O&M Cost</th>
+                  <td><span class="cur">&#36</span><span id="omcost">0</span></td>
+                  <td>per year</td>
+                </tr>
+                <tr>
+                  <th scope="row">Land Lease Cost</th>
+                  <td><span class="cur">&#36</span><span id="llcost">0</span></td>
+                  <td>per year</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Cost of Power Generation">P cost to generate</th>
+                  <td><span class="cur">&#36</span><span id="pctg">0</span></td>
+                  <td>per kWh</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Total Annual Expense (cost of sales or COGS)">Tae</th>
+                  <td><span class="cur">&#36</span><span id="tae">0</span></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Annual Profit (gross margin)">Pa</th>
+                  <td><span class="cur">&#36</span><span id="pa">0</span></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Return on Investment ratio (>8% considered good)">ROI</th>
+                  <td><span id="roi">0</span></td>
+                  <td>%</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="time to financial Break Even Point (years)">BEP</th>
+                  <td><span id="bep">0</span></td>
+                  <td>years</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <h5>Footnotes</h5>
+            <ul>
+              <li>Above based on formulas, narrative and discussion from <a href="https://www.windpowerengineering.com/windpower-profitability-and-break-even-point-calculations/">Windpower Engineering and Development</a></li>
+              <li>Calculation currently for single turbine only</li>
+              <li>Renewable energy subsidies, grid connection, transmission costs, depreciation and decommissioning expenses are not accounted for in the calculations</li>
+            </ul>
+            <br>
+            <br>
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+  </div>
+  <script src="js/footer.js"></script>
+  <script src="js/utilities.js"></script>
+  <script src="js/turbine_economics.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/slider.js"></script>
+  <script>
+    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  </script>
+</body>
+</html>
+
