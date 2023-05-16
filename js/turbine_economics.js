@@ -38,7 +38,7 @@
     document.getElementById('revenue').textContent = formatter.format(revenue);
     document.getElementById('omcost').textContent = formatter.format(omcost);
     document.getElementById('llcost').textContent = formatter.format(llcost);
-    document.getElementById('pctg').textContent = pctg.toFixed(3);
+    document.getElementById('pctg').textContent = pctg.toFixed(2);
     document.getElementById('tae').textContent = formatter.format(tae);
     document.getElementById('pa').textContent = formatter.format(pa);
     document.getElementById('roi').textContent = roi.toFixed(2);
