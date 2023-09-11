@@ -68,7 +68,8 @@
           <div class="form-group">
             <label for="discrate" class="form-label mt-4">Discount rate (r): <span id="discval"></span>%</label>
             <input type="range" class="form-range" id="discrate" min="2" max="10" step="1" name="discrate" value="5"
-              data-bs-toggle="tooltip" data-bs-placement="bottom" title="input the discount rate in % (how quickly the plant loses value over time in % per year)">
+              data-bs-toggle="tooltip" data-bs-placement="bottom"
+              title="input the discount rate in % (how quickly the plant loses value over time in % per year)">
           </div>
           <div class="form-group">
             <label for="deslife" class="form-label mt-4">Plant life span (T): <span id="lifeval"></span> years</label>
@@ -77,7 +78,7 @@
           </div>
           <div class="form-group">
             <label for="capfactor" class="form-label mt-4">Capacity factor: <span id="capval"></span>%</label>
-            <input type="range" class="form-range" id="capfactor" min="20" max="99" step="1" name="capfactor" value="90"
+            <input type="range" class="form-range" id="capfactor" min="20" max="47" step="1" name="capfactor" value="90"
               data-bs-toggle="tooltip" data-bs-placement="bottom"
               title="input what the plant will generate on average as a percentage of it's rated capacity">
           </div>
@@ -104,40 +105,50 @@
             <table class="table table-hover">
               <tbody>
                 <tr>
-                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Levelized Cost of Energy - average revenue per unit of energy output (MWh)">LCoE</th>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Levelized Cost of Energy - average revenue per unit of energy output (MWh)">LCoE</th>
                   <td><span class="cur">&#36</span><span id="lcoecalc">0</span></td>
                   <td>per MWh</td>
                 </tr>
                 <tr>
-                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Annual Energy Production per year in MWh">
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Annual Energy Production per year in MWh">
                     Annual Energy Production (Q)</th>
                   <td><span id="production">0</span></td>
                   <td>MWh/year</td>
                 </tr>
                 <tr>
-                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Equivalent days of production (24H/day) based on Capacity Factor">
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Equivalent days of production (24H/day) based on Capacity Factor">
                     Production days equivalent</th>
                   <td><span id="dayseq">0</span></td>
                   <td>days/year</td>
                 </tr>
                 <tr>
-                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="The fraction of the Total Installed Cost that must be set aside each year to retire capital costs which include interest on debt, return on equity, and so forth.  7% is a generally accepted figure.">
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="The fraction of the Total Installed Cost that must be set aside each year to retire capital costs which include interest on debt, return on equity, and so forth.  7% is a generally accepted figure.">
                     FCR</th>
                   <td><span id="fcrcalc">0</span></td>
                   <td>%</td>
                 </tr>
                 <tr>
-                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Levelized Fixed Cost - average payment required to amortize or pay off capital costs over T years (per MWh)">LFC</th>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Levelized Fixed Cost - average payment required to amortize or pay off capital costs over T years (per MWh)">
+                    LFC</th>
                   <td><span class="cur">&#36</span><span id="lfccalc">0</span></td>
                   <td>per MWh</td>
                 </tr>
                 <tr>
-                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Levelized Variable Cost - average payment required to cover per-unit operational costs (per MWh)">LVC</th>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Levelized Variable Cost - average payment required to cover per-unit operational costs (per MWh)">
+                    LVC</th>
                   <td><span class="cur">&#36</span><span id="lvccalc">0</span></td>
                   <td>per MWh</td>
                 </tr>
                 <tr>
-                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Margin per Unit of Output - should be positive then the project will be profitable">Margin</th>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Margin per Unit of Output - should be positive then the project will be profitable">Margin
+                  </th>
                   <td><span class="cur curchk">&#36</span><span id="margincalc">0</span></td>
                   <td></td>
                 </tr>
@@ -148,7 +159,8 @@
             <ul>
               <li>It is assumed that the annual output of the project (Q) will be constant each year</li>
               <li>It is assumed that variable cost of production per unit of output (M) is constant each year</li>
-              <li>Variable cost of production includes fuel, labour and any other variable operations or maintenance costs</li>
+              <li>Variable cost of production includes fuel, labour and any other variable operations or maintenance
+                costs</li>
               <li>Renewable energy subsidies, grid connection, transmission costs, depreciation and decommissioning
                 expenses are not accounted for in the calculations</li>
             </ul>
