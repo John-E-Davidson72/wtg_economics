@@ -1,10 +1,10 @@
 # Wind Turbine Economics
 
-App for estimating cost, profitability and return on investment of a single wind turbine generator.
+App for estimating cost, profitability and return on investment of wind farm developments.
 
 ## Description
 
-App calculates:
+For a single turbine, the app calculates:
 
 * Net Annual Energy Production
 * Levelized Replacement Cost
@@ -16,6 +16,16 @@ App calculates:
 * Annual Profit (gross margin)
 * Return on Investment Ratio
 * Break-Even point in years
+
+For larger wind farm devlopments, the app calculates:
+
+* Levelized Cost of Energy
+* Annual Energy Production
+* Production Days Equivalent
+* Fixed Charge Rate
+* Levelized Fixed Cost
+* Levelized Variable Cost
+* Margin
 
 ## Getting Started
 
@@ -42,8 +52,8 @@ App calculates:
 
 ## Version History
 
-* 0.0
-    * Initial Release
+* 0.1
+    * Landing page, UI updated and LCOE page added
 
 ## License
 
