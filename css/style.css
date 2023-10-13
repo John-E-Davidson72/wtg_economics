@@ -1,32 +1,32 @@
 .img-tur {
-    padding: 0px;
-    width: 60px;
-    vertical-align: top;
-  }
+  padding: 0px;
+  width: 60px;
+  vertical-align: top;
+}
 
-  .val-pass {
-    font-weight: bold;
-    color: #78C2AD;
-  }
-  
-  .val-fail {
-    font-weight: bold;
-    color: #F3969A;
-  }
+.val-pass {
+  font-weight: bold;
+  color: #78C2AD;
+}
 
-  .img-wtg {
-    max-width:100%;
-    height: 75vh;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .img-wtg:hover {
-    filter: grayscale(100%);
-  }
+.val-fail {
+  font-weight: bold;
+  color: #F3969A;
+}
 
-  .img-tur-nav {
-    padding: 2px;
-    width: 40px;
-    vertical-align: top;
-  }
+.img-wtg {
+  max-width: 100%;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+}
+
+.img-wtg:hover {
+  filter: grayscale(100%);
+}
+
+.img-tur-nav {
+  padding: 2px;
+  width: 40px;
+  vertical-align: top;
+}
