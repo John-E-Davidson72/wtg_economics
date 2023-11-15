@@ -1,11 +1,18 @@
 document.write("<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary\">\
 <div class=\"container-fluid\">\
   <img src=\"img/wind-energy.png\" class=\"img-tur-nav\">\
-  <a class=\"navbar-brand\" href=\"index.html\">Wind Farm Economics</a>\
+  <img src=\"img/infrastaq_io_white.png\" class=\"img-infrastaq\">\
+  <a class=\"navbar-brand\" href=\"https://infrastaq.io/\">Wind Energy Software</a>\
   <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarColor01\" aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\
     <span class=\"navbar-toggler-icon\"></span>\
   </button>\
   <div class=\"collapse navbar-collapse\" id=\"navbarColor01\">\
+  <ul class=\"navbar-nav me-auto\">\
+  <li class=\"nav-item\">\
+    <a class=\"nav-link\" href=\"index.html\">Home\
+    <span class=\"visually-hidden\">(current)</span>\
+    </a>\
+  </li>\
     <ul class=\"navbar-nav me-auto\">\
     <li class=\"nav-item\">\
       <a class=\"nav-link\" href=\"oneturbine.html\">Single Turbine\
