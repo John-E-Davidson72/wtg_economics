@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap & other CSS -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <title>Wind Turbine Economics - small domestic turbines - UK</title>
+</head>
+
+<body>
+  <script src="js/nav.js"></script>
+  <br>
+  <div class="row">
+    <div class="col-lg-10 offset-lg-2">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0">
+          <img src="img/wind-farm.png" class="img-tur">
+        </div>
+        <div class="flex-grow-1 ms-3">
+          <h3>Wind Turbine Economics - small domestic turbines - UK</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3 offset-lg-2 px-5">
+      <form name="form" id="form" action="/wtg_economics/small_turbine_uk_seg.html" method="post">
+        <fieldset>
+          <div class="form-group">
+            <label for="speed" class="form-label mt-4">Average annual wind speed m/s</label>
+            <select class="form-select" id="speed-dropdown" name="speed" fdprocessedid="xsvpb" data-bs-toggle="tooltip" data-bs-placement="top" title="Input the average wind speed at your site in m/s."></select>
+          </div>         
+          <div class="form-group">
+            <label for="dia" class="form-label mt-4">Turbine rotor diameter M</label>
+            <input type="number" class="form-control" name="dia" id="dia" required min="0.7" max="3.5" step="0.1"
+              placeholder="2.5" data-bs-toggle="tooltip" data-bs-placement="top" title="input Turbine rotor diameter in M">
+          </div>
+          <div class="form-group">
+            <label for="rating" class="form-label mt-4">Turbine rating kW</label>
+            <input type="number" class="form-control" name="rating" id="rating" required min="0.02" max="100" step="0.01"
+              placeholder="1" data-bs-toggle="tooltip" data-bs-placement="top" title="input Turbine Rated Capacity kW">
+          </div>
+          <div class="form-group">
+            <label for="usage" class="form-label mt-4">Electricity usage per year kWh</label>
+            <input type="number" class="form-control" name="usage" id="usage" required min="1000" max="3500" step="50"
+              placeholder="2700" data-bs-toggle="tooltip" data-bs-placement="top" title="input yearly electricity usage in kWh, the average in the UK is 2700 kWh">
+          </div>
+          <div class="form-group">
+            <label for="elecost" class="form-label mt-4">Unit cost of electricity <span class="cur">p / kWh</span></label>
+            <input type="number" class="form-control" name="elecost" id="elecost" required placeholder="29.0"
+              min="20.0" max="40.0" step="0.1" data-bs-toggle="tooltip" data-bs-placement="top" title="input unit cost of electricity from your supplier in pence per kWh">
+          </div>
+          <div class="form-group">
+            <label for="standch" class="form-label mt-4">Standing charge <span class="cur">p / day</span></label>
+            <input type="number" class="form-control" name="standch" id="standch" required placeholder="54.6"
+              min="40.0" max="60.0" step="0.1" data-bs-toggle="tooltip" data-bs-placement="top" title="input standing charge from your supplier in pence per day">
+          </div>
+          <div class="form-group">
+            <label for="segrate" class="form-label mt-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Input the SEG rate from your utility supplier.  SEG stands for Smart Export Guarantee, this replaced the Feed In Tariff scheme which ended in April 2019.">SEG rate</label>
+            <select class="form-select" id="seg-dropdown" name="segrate" fdprocessedid="xsvpb"></select>
+          </div>        
+          <br>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit">Calculate</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="col-lg-6 px-5">
+      <br>
+      <div class="bs-component">
+        <div class="card border-primary mb-3">
+          <div class="card-header">Results</div>
+          <div class="card-body">
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Annual Energy Output (at turbine)">
+                    AEO</th>
+                  <td><span id="aeores">0</span></td>
+                  <td>kWh/year</td>
+                </tr>   
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total utility bill for the year (use and standing charge) including 5% VAT">Utility Cost</th>
+                  <td><span class="cur">&#163</span><span id="utilcost">0</span></td>
+                  <td>per year</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="For a wind system, in general only 30% of domestic supply coincides with the wind generation profile.  This figure also accounts for losses in the conductors, these should be sized appropriately for the run to the load and to minimize any power losses, preferably to around 5% or lower.">
+                    Energy consumed (from turbine)</th>
+                  <td><span id="energycon">0</span></td>
+                  <td>kWh/year</td>
+                </tr>   
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="In practice up to 70% of wind power is exported to the grid.  This figure also accounts for losses in the conductors, these should be sized appropriately for the run to the meter and to minimize any power losses, preferably to around 5% or lower.">
+                    Net excess generation (exported)</th>
+                  <td><span id="energyexp">0</span></td>
+                  <td>kWh/year</td>
+                </tr>   
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="How much is saved by using electricity generated by the turbine to supply your household / not using electricity from your utility provider.">Utility cost avoided</th>
+                  <td><span class="cur">&#163</span><span id="avcost">0</span></td>
+                  <td>per year</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="How much you earn from exporting electricity back to the grid.">SEG payment</th>
+                  <td><span class="cur">&#163</span><span id="segp">0</span></td>
+                  <td>per year</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Total saving - utility cost avoided + SEG payment.">Total saving</th>
+                  <td><span class="cur">&#163</span><span id="totalsav">0</span></td>
+                  <td>per year</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total saving on utility cost %.">Total saving percent</th>
+                  <td><span id="totalspc">-</span></td>
+                  <td>%</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="Wind turbine generation as a percentage of yearly consumption.  A domestic property can generate up to 120% of the energy needed to run the home, and sell up to 20% excess energy without it becoming taxable.">
+                    WTG generation % of total usage</th>
+                  <td><span id="wtgpc">0</span></td>
+                  <td>%</td>
+                </tr>   
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="If SEG sales become taxable (they exceed the 120% allowance), you could still be exempt under the £1,000 trading allowance. If annual income from SEG payments is more than this tax-free allowance, this must be reported to HMRC.  The £1,000 allowance can still be deducted from the taxable total.">SEG payment taxable?</th>
+                  <td><span id="tax">-</span></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="What the turbine generates as a percentage of it's theoretical maximum output.">
+                    Capacity Factor</th>
+                  <td><span id="capfact">0</span></td>
+                  <td>%</td>
+                </tr>   
+              </tbody>
+            </table>
+            <br>
+            <ul>
+              <li>This application should be used for initial screening and comparative assessment only.
+              </li>
+              <li>It is assumed that the turbine is installed on a tower in an optimal location free from obstructions or terrain features that would adversely impact turbine performance.  Reference height is 10 metres.</li>
+              <li>A detailed site assessment and wind resource assessment should be conducted before making the decision to purchase a small wind system.</li>
+              <li>In the above model the annual wind power and energy density are based on Rayleigh Distribution.</li>
+              <li>If a yearly SEG payment becomes taxable, this will affect the overall level of saving vs. your utility bill.  Rates of income tax vary depending on individual circumstances and are not accounted for in the calculation.</li>
+              <li>In most cases you will need to be a customer of a particular energy supplier to access the SEG rates listed, there are exceptions however, such as Scottish Power's offerings.</li>
+              <li>To qualify for SEG payments, your installation must be accredited by the <a href="https://mcscertified.com/" rel="nofollow">Microgeneration Certification Scheme (MCS)</a>.</li>
+              <li><a href="https://www.ofgem.gov.uk/environmental-and-social-schemes/smart-export-guarantee-seg" rel="nofollow">Smart Export Guarantee (SEG) information</a></li>
+            </ul>       
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+  </div>
+  <script src="js/footer.js"></script>
+  <script src="js/utilities.js"></script>
+  <script src="js/uk_seg.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="js/slider.js"></script> -->
+  <script>
+    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  </script>
+</body>
+
+</html>
